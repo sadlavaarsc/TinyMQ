@@ -95,6 +95,14 @@ func (b *Broker) CreateConsumerGroup(groupID, topicName string) (*ConsumerGroup,
 	return cg, nil
 }
 
+// GetConsumerGroup 获取指定 Consumer Group。
+func (b *Broker) GetConsumerGroup(groupID string) (*ConsumerGroup, bool) {
+	b.mu.RLock()
+	defer b.mu.RUnlock()
+	cg, ok := b.consumerGroups[groupID]
+	return cg, ok
+}
+
 // Produce 发送消息到指定 Topic 的某个 Partition。
 func (b *Broker) Produce(topicName string, partition int, payload []byte) (int64, error) {
 	topic, ok := b.GetTopic(topicName)

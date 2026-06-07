@@ -1,3 +1,4 @@
+// Package replication 实现 TinyMQ 的主从复制与故障切换。
 package replication
 
 import (
